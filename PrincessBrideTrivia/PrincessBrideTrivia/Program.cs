@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace PrincessBrideTrivia
@@ -22,10 +22,7 @@ namespace PrincessBrideTrivia
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
         }
 
-        public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
-        {
-            return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
-        }
+        public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions) => ((int)((float) numberCorrectAnswers / numberOfQuestions * 100)) + "%";
 
         public static bool AskQuestion(Question question)
         {
@@ -89,6 +86,8 @@ namespace PrincessBrideTrivia
                 question.Answers[1] = answer2;
                 question.Answers[2] = answer3;
                 question.CorrectAnswerIndex = correctAnswerIndex;
+
+                questions[i] = question;
             }
             return questions;
         }
