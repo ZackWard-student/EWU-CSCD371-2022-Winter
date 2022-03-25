@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 
 namespace Z_Sorting;
@@ -11,11 +12,6 @@ public class ZSort
         throw new NotImplementedException();
     }
 
-    private (int min, int max, int count) getMinMaxCount(IIndexable[] array)
-    {
-        throw new NotImplementedException();
-    }
-
     public void sort(IIndexable[] array, int min, int max, int count)
     {
         throw new NotImplementedException();
@@ -23,11 +19,11 @@ public class ZSort
 
     
 
-    public static int[] sort(int[] array)
+    public static void sort(int[] array)
     {
         (int min, int max, int length) = getMinMaxCount(array);
-       
-        index[] indexArray = new index[max - min + 1];
+        int indexableArrayLength = max - min + 1;
+        index[] indexArray = new index[indexableArrayLength];
         bool[] trueIfSorted = new bool[length];
 
         foreach (int idexable in array)
@@ -36,11 +32,12 @@ public class ZSort
         }
 
         int index = 0;
-        for (int i = 0; i < length; ++i)
+
+        foreach (index item in indexArray)
         {
-            indexArray[i].StartingIndex = index;
-            index += indexArray[i].Count;
-            indexArray[i].EndingIndex = index - 1;
+            item.StartingIndex = index;
+            index += item.Count;
+            item.EndingIndex = index - 1;
         }
 
         for (int i = 0; i < length; ++i)
@@ -49,9 +46,8 @@ public class ZSort
             {
                 int currentNumber = array[i]; //temporary storage of the elements indexable label to be sorted
 
-                int currentIndex = i;
                 int indexableIndex = currentNumber - min;
-                AlreadySorted(indexArray, trueIfSorted, currentIndex, indexableIndex);
+                AlreadySorted(indexArray, trueIfSorted, i, indexableIndex);
 
                 while (!trueIfSorted[i])
                 {
@@ -67,7 +63,7 @@ public class ZSort
                     }
                     
                     int targetedNumber = array[targetIndex]; //temporary storage of the next elements indexable label to be sorted
-                    //if not an int would need to also tmeporily store the element
+                    //if not an int would need to also temporily store the element
                     array[targetIndex] = currentNumber; //assigning of the element
                     trueIfSorted[targetIndex] = true;
                     
@@ -76,20 +72,54 @@ public class ZSort
                 }
             }
         }
-        return array;
+        return;
     }
 
-    private static bool AlreadySorted(index[] indexArray, bool[] trueIfSorted, int i, int indexedIndex)
+    private static bool AlreadySorted(index[] indexArray, bool[] trueIfSorted, int targetIndex, int indexedIndex)
     {
-        if ((indexArray[indexedIndex].StartingIndex < i) && (i <= indexArray[indexedIndex].EndingIndex))
+        if ((indexArray[indexedIndex].StartingIndex < targetIndex) && (targetIndex <= indexArray[indexedIndex].EndingIndex))
         {
-            trueIfSorted[i] = true;
+            trueIfSorted[targetIndex] = true;
             return true;
         }
         return false;
     }
 
-    private static (int min, int max, int length) getMinMaxCount(int[] array) => (array.Min(), array.Max(), array.Length);
+    private static (int min, int max, int length) getMinMaxCount(IIndexable[] array)
+    {
+        int length = array.Length;
+        int min = int.MinValue;
+        int max = int.MaxValue;
+        if(length > 0)
+        {
+            foreach (var item in array)
+            {
+                int index = item.Index;
+                if (min > index) min = index;
+                if (max < index) max = index;
+            }
+        }
+
+        return (min, max, length);
+    }
+
+    private static (int min, int max, int length) getMinMaxCount(int[] array)
+    {
+        int length = array.Length;
+        int min = int.MaxValue;
+        int max = int.MinValue;
+        if (length > 0)
+        {
+            foreach (int item in array)
+            {
+                int index = item;
+                if (min > index) min = index;
+                if (max < index) max = index;
+            }
+        }
+
+        return (min, max, length);
+    }
 }
 
 internal class index
