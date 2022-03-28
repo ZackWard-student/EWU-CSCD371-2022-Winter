@@ -48,12 +48,80 @@ public class ZSortTests
     }
 
     [TestMethod]
+    public void Simple_Sort_UnsortedRepeating_Success_v1()
+    {
+        int[] sortedArrayControl = { 1, 2, 2};
+        int[] mixedArray = { 2, 2, 1};
+
+        ZSort.sort(mixedArray, internals: true);
+
+        Assert.IsTrue(ZSortBase.IsSortedbyInternalBoolArray());
+
+        for (int i = 0; i < sortedArrayControl.Length; i++)
+        {
+            Assert.AreEqual<int>(sortedArrayControl[i], mixedArray[i]);
+        }
+    }
+
+    [TestMethod]
+    public void Simple_Sort_UnsortedRepeating_Success_v2()
+    {
+        int[] sortedArrayControl = { 1, 2, 2 };
+        int[] mixedArray = { 2, 1, 2 };
+
+        ZSort.sort(mixedArray, internals: true);
+
+        Assert.IsTrue(ZSortBase.IsSortedbyInternalBoolArray());
+
+        for (int i = 0; i < sortedArrayControl.Length; i++)
+        {
+            Assert.AreEqual<int>(sortedArrayControl[i], mixedArray[i]);
+        }
+    }
+
+    [TestMethod]
+    public void Simple_Sort_UnsortedRepeating_Success_v3()
+    {
+        int[] sortedArrayControl = { 1, 1, 2, 2 };
+        int[] mixedArray = { 1, 2, 1, 2 };
+
+        ZSort.sort(mixedArray, internals: true);
+
+        Assert.IsTrue(ZSortBase.IsSortedbyInternalBoolArray());
+
+        for (int i = 0; i < sortedArrayControl.Length; i++)
+        {
+            System.Console.WriteLine($"index: {i}");
+            Assert.AreEqual<int>(sortedArrayControl[i], mixedArray[i]);
+        }
+    }
+
+    [TestMethod]
+    public void Simple_Sort_UnsortedRepeating_Success_v4()
+    {
+        int[] sortedArrayControl = { 1, 1, 2, 2 };
+        int[] mixedArray = { 2, 2, 1, 1 };
+
+        ZSort.sort(mixedArray, internals: true);
+
+        Assert.IsTrue(ZSortBase.IsSortedbyInternalBoolArray());
+
+        for (int i = 0; i < sortedArrayControl.Length; i++)
+        {
+            System.Console.WriteLine($"index: {i}");
+            Assert.AreEqual<int>(sortedArrayControl[i], mixedArray[i]);
+        }
+    }
+
+    [TestMethod]
     public void Sort_UnsortedRepeating_Success()
     {
         int[] sortedArrayControl = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20 };
         int[] mixedArray = { 13, 2, 9, 7, 10, 11, 19, 14, 8, 6, 4, 17, 3, 12, 1, 15, 5, 18, 20, 16, 13, 2, 9, 7, 10, 11, 19, 14, 8, 6, 4, 17, 3, 12, 1, 15, 5, 18, 20, 16 };
 
-        ZSort.sort(mixedArray);
+        ZSort.sort(mixedArray, internals: true);
+
+        Assert.IsTrue(ZSortBase.IsSortedbyInternalBoolArray());
 
         for (int i = 0; i < sortedArrayControl.Length; i++)
         {
