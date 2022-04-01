@@ -1,10 +1,10 @@
 ﻿namespace Z_Sorting
 {
-    public class ZSortBase
+    public class InternalBoolArray
     {
         internal static bool[]? _InternalBoolArray;
 
-        public static bool IsSortedbyInternalBoolArray()
+        public static bool AreAllTrue()
         {
             if (_InternalBoolArray is null) return false;
 
